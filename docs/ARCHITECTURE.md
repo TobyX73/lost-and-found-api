@@ -120,7 +120,7 @@ Hay límite de reclamos por usuario y publicación para evitar adivinar respuest
 
 - [x] **Fase 0 — Base:** env validado con Zod, migraciones, extensiones (`postgis`, `pg_trgm`, `unaccent`), Swagger, health check, validación global.
 - [x] **Fase 1 — Auth + Users.**
-- [ ] **Fase 2 — Categorías + publicaciones** (CRUD, geolocalización, privacidad de la ubicación).
+- [x] **Fase 2 — Categorías + publicaciones** (CRUD, geolocalización, privacidad de la ubicación).
 - [ ] **Fase 3 — Búsqueda** (distancia, fecha, categoría, texto, paginación por cursor).
 - [ ] **Fase 4 — Fotos** (subida, validación de tipo y tamaño, miniaturas, borrado de EXIF/GPS).
 - [ ] **Fase 5 — Matching** + eventos.

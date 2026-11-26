@@ -23,20 +23,27 @@ export class JwtAuthGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
-    if (isPublic) return true;
-
     const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
     const [scheme, token] = request.headers.authorization?.split(' ') ?? [];
-    if (scheme !== 'Bearer' || !token) {
-      throw new UnauthorizedException('Missing bearer token');
+    const hasToken = scheme === 'Bearer' && Boolean(token);
+
+    if (isPublic) {
+      // Public routes still pick up the user when a valid token comes along (see @OptionalUser).
+      if (hasToken) await this.attachUser(request, token).catch(() => undefined);
+      return true;
     }
 
+    if (!hasToken) throw new UnauthorizedException('Missing bearer token');
     try {
-      const payload = await this.jwt.verifyAsync<AccessTokenPayload>(token);
-      request.user = { id: payload.sub };
+      await this.attachUser(request, token);
     } catch {
       throw new UnauthorizedException('Invalid or expired access token');
     }
     return true;
+  }
+
+  private async attachUser(request: AuthenticatedRequest, token: string): Promise<void> {
+    const payload = await this.jwt.verifyAsync<AccessTokenPayload>(token);
+    request.user = { id: payload.sub };
   }
 }

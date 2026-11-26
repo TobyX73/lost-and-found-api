@@ -1,6 +1,7 @@
 import type { DataSourceOptions } from 'typeorm';
 import type { Env } from '../config/env.schema.js';
 import { InitAuth1764028800000 } from './migrations/1764028800000-init-auth.js';
+import { CategoriesPosts1764115200000 } from './migrations/1764115200000-categories-posts.js';
 
 type DbEnv = Pick<
   Env,
@@ -14,7 +15,7 @@ type DbEnv = Pick<
 >;
 
 /** Migrations are listed explicitly so they load the same way under Nest, Vitest and the TypeORM CLI. */
-export const migrations = [InitAuth1764028800000];
+export const migrations = [InitAuth1764028800000, CategoriesPosts1764115200000];
 
 export function buildDatabaseOptions(env: DbEnv): DataSourceOptions {
   return {

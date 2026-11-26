@@ -4,7 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { envSchema, type Env } from './config/env.schema.js';
 import { buildDatabaseOptions } from './database/database.options.js';
 import { AuthModule } from './modules/auth/auth.module.js';
+import { CategoriesModule } from './modules/categories/categories.module.js';
 import { HealthModule } from './modules/health/health.module.js';
+import { PostsModule } from './modules/posts/posts.module.js';
 import { UsersModule } from './modules/users/users.module.js';
 
 @Module({
@@ -28,6 +30,8 @@ import { UsersModule } from './modules/users/users.module.js';
     HealthModule,
     UsersModule,
     AuthModule,
+    CategoriesModule,
+    PostsModule,
   ],
 })
 export class AppModule {}
